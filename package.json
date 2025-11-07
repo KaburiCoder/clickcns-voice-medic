@@ -1,6 +1,6 @@
 {
   "name": "@cns-react/common",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A collection of powerful utilities and components built with React and Vite",
   "author": "clickcns",
   "license": "MIT",
