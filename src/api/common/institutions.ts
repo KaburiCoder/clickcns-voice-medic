@@ -1,5 +1,5 @@
 import type { Institution } from "@/types";
-import { apiClient } from "@clickcns/vmedic-react/api";
+import { apiClient } from "../axios";
 
 export const institutionsApi = {
   getInstitutions: async (): Promise<Institution[]> => {
