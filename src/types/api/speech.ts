@@ -99,3 +99,8 @@ export interface ResummaryPartRequest {
   level: number;
   part: ResummaryPart;
 }
+
+export interface UpsertPatientRequest {
+  chart: string;
+  name?: string;
+}

@@ -30,3 +30,15 @@ export interface NoticeListRequest {
   searchText?: string;
   showPublishedOnly?: boolean;
 }
+
+export interface CreateNoticeRequest {
+  title: string;
+  content: string;
+  published: boolean;
+}
+
+export interface UpdateNoticeRequest {
+  title?: string;
+  content?: string;
+  published?: boolean;
+}

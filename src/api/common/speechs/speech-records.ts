@@ -1,9 +1,13 @@
 import { apiClient } from "../../axios";
 import type {
+  GetRecordsByDatesRequest,
+  GetRecordsByDatesResponse,
+  Patient,
+  RecordData,
   RecordsPageRequest,
   RecordsResponse,
-  RecordsWithPageResponse
-} from "../../../types/api"; 
+  RecordsWithPageResponse,
+} from "../../../types/api";
 import type { PatientInfoDto } from "../../../types";
 
 export const speechRecords = {
@@ -13,7 +17,7 @@ export const speechRecords = {
   },
 
   getRecordsWithPage: async (
-    dto: RecordsPageRequest,
+    dto: RecordsPageRequest
   ): Promise<RecordsWithPageResponse> => {
     const res = await apiClient.post("/speech/records", dto);
     return res.data;
@@ -69,9 +73,45 @@ export const speechRecords = {
   },
 
   getRecordFromAgent: async (
-    patientInfo: PatientInfoDto,
+    patientInfo: PatientInfoDto
   ): Promise<Partial<RecordsResponse>> => {
     const res = await apiClient.post(`/speech/records/from-agent`, patientInfo);
+    return res.data;
+  },
+
+  // --- admin ---
+  getRecordsByDates: async ({
+    startDate,
+    endDate,
+    page,
+    searchText,
+    ykiho,
+    username,
+  }: GetRecordsByDatesRequest): Promise<GetRecordsByDatesResponse> => {
+    const res = await apiClient.get("/speech/records/by-dates", {
+      params: {
+        startDate,
+        endDate,
+        page: Number(page),
+        ...(searchText && { searchText }),
+        ...(ykiho && { ykiho }),
+        ...(username && { username }),
+      },
+    });
+    return res.data;
+  },
+
+  getPatients: async (): Promise<Patient[]> => {
+    const res = await apiClient.get("/speech/patients");
+    return res.data;
+  },
+
+  getRecordData: async ({
+    recordId,
+  }: {
+    recordId: string;
+  }): Promise<RecordData> => {
+    const res = await apiClient.get(`/speech/record-datas/${recordId}`);
     return res.data;
   },
 };

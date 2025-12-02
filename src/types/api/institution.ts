@@ -3,4 +3,5 @@ export interface Institution {
   name: string;
   createdAt?: Date;
   updatedAt?: Date;
+  captureRectId?: string | null;
 }

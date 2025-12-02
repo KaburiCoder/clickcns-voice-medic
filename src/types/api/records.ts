@@ -1,3 +1,4 @@
+import type { UserDto } from "./auth";
 import type {
   DiarizationMessage,
   LlmRoom,
@@ -13,6 +14,7 @@ export interface RecordsResponse {
   userId: string;
   ykiho: string | null;
   patient: Patient;
+  user?: UserDto;
   llmRooms?: LlmRoom[];
   audioFiles?: AudioFile[];
   recordData?: Partial<RecordData> | null;
@@ -37,4 +39,21 @@ export interface RecordsWithPageResponse {
   totalCount: number;
   totalPages: number;
   currentPage: number;
+}
+
+export interface GetRecordsByDatesRequest {
+  startDate: string;
+  endDate: string;
+  page: number;
+  searchText?: string;
+  ykiho?: string;
+  username?: string;
+}
+
+export interface GetRecordsByDatesResponse {
+  totalCount: number;
+  audioFileCount: number;
+  avgDurationSeconds: number;
+  totalDurationSeconds: number;
+  records: RecordsResponse[];
 }

@@ -14,7 +14,7 @@ export const authApi = {
   login: async (credentials: LoginRequest): Promise<AuthResponse> => {
     const response = await apiClient.post<AuthResponse>(
       "/auth/login",
-      credentials,
+      credentials
     );
     return response.data;
   },
@@ -37,8 +37,36 @@ export const authApi = {
     userId: string;
   }): Promise<UserDto> => {
     const response = await apiClient.put<UserDto>(
-      `/auth/user/generate-key/${userId}`,
+      `/auth/user/generate-key/${userId}`
     );
     return response.data;
+  },
+
+  // --- 관리자 ---
+  adminLogin: async (credentials: LoginRequest): Promise<AuthResponse> => {
+    const response = await apiClient.post<AuthResponse>(
+      "/auth/admin-login",
+      credentials
+    );
+    return response.data;
+  },
+
+  updateUser: async (data: Partial<UserDto>): Promise<{ user: UserDto }> => {
+    const response = await apiClient.put<{ user: UserDto }>(
+      `/auth/user/${data.id}`,
+      data
+    );
+    return response.data;
+  },
+
+  deleteUser: async (userId: string): Promise<void> => {
+    await apiClient.delete(`/auth/user/${userId}`);
+  },
+
+  changePassword: async (data: {
+    currentPassword: string;
+    newPassword: string;
+  }): Promise<void> => {
+    await apiClient.patch("/auth/me/change-password", data);
   },
 };

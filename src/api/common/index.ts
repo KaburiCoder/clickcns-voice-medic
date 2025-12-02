@@ -8,3 +8,4 @@ export * from "./notice";
 export * from "./partners";
 export * from "./push";
 export * from "./user-settings";
+export * from './institutions';

@@ -12,6 +12,7 @@ export interface UserDto {
   createdAt: Date | null;
   updatedAt: Date | null;
   institution?: Institution;
+  partnerId?: string | null;
 }
 
 export interface Tokens {
