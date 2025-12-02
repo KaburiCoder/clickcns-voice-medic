@@ -4,13 +4,14 @@ import axios, { type AxiosInstance, type CreateAxiosDefaults } from "axios";
 interface CreateAxiosArg extends CreateAxiosDefaults {
   baseURL: string;
   getAccessToken: () => string | null;
-  getRefreshAccessToken: () => Promise<string>;
-  onUnauthorized?: () => void;
+  getRefreshAccessToken: () => Promise<string | undefined>;
+  onUnauthorized: () => void;
+  onRefreshTokenSuccess: (newAccessToken: string) => void;
 }
 
 export let apiClient: AxiosInstance;
 
-export const initailizeAxios = ({
+export const initializeAxios = ({
   baseURL,
   timeout = 120_000,
   withCredentials = true,
@@ -18,6 +19,7 @@ export const initailizeAxios = ({
   getAccessToken,
   getRefreshAccessToken,
   onUnauthorized,
+  onRefreshTokenSuccess,
   ...props
 }: CreateAxiosArg) => {
   apiClient = axios.create({
@@ -62,12 +64,16 @@ export const initailizeAxios = ({
         try {
           // fetch 기반 refreshAccessToken 사용 (쿠키 자동 전송)
           const accessToken = await getRefreshAccessToken();
+          if (!accessToken) {
+            throw new Error("Failed to refresh access token");
+          }
           // 원래 요청 재시도
           originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+          onRefreshTokenSuccess(accessToken);
           return apiClient(originalRequest);
         } catch (refreshError) {
           // Refresh 실패 시 토큰만 정리하고 리다이렉트는 하지 않음
-          onUnauthorized?.();
+          onUnauthorized();
           return Promise.reject(refreshError);
         }
       }
