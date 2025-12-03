@@ -1,32 +1,64 @@
-import { useState } from "react";
-import {
-  useCreateFeedbackComment,
-  useDeleteFeedback,
-  useDeleteFeedbackComment,
-  useFeedbackComments,
-  useFeedbackDetail,
-  useUpdateFeedback,
-  useUpdateFeedbackComment,
-  useCommentEditor,
-} from "./hooks";
-import type { UserDto } from "../../types";
 import { AlertCircle, Loader2 } from "lucide-react";
-import { Button, Separator } from "../../shadcn-ui";
+import { useRef, useState, useTransition } from "react";
 import { cn } from "../../lib/utils";
+import { Button, Separator } from "../../shadcn-ui";
+import type {
+  CreateFeedbackCommentRequest,
+  CreateFeedbackRequest,
+  Feedback,
+  FeedbackComment,
+  UserDto,
+} from "../../types";
 import { CommentSection, FeedbackBody, FeedbackHeader } from "./components";
+import { useCommentEditor } from "./hooks";
 
 interface FeedbackDetailPageContentProps {
-  feedbackId: string;
+  feedback: Feedback | undefined;
+  comments: FeedbackComment[] | undefined;
+  isFeedbackLoading: boolean;
+  feedbackError: unknown;
+  isCommentsLoading: boolean;
+  currentUser: UserDto | undefined;
   onClose?: () => void;
   isDialog?: boolean;
-  user?: UserDto;
+  callbacks: {
+    onCommentCreate: (
+      feedbackId: string,
+      data: CreateFeedbackCommentRequest
+    ) => Promise<any>;
+    onCommentUpdate: (
+      commentId: string,
+      data: CreateFeedbackCommentRequest
+    ) => Promise<any>;
+    onCommentDelete: (commentId: string) => Promise<any>;
+    onFeedbackUpdate: (
+      id: string,
+      data: Partial<CreateFeedbackRequest>
+    ) => Promise<any>;
+    onFeedbackStatusUpdate?: (
+      id: string,
+      data: Partial<CreateFeedbackRequest> & {
+        status?: "pending" | "resolved";
+      }
+    ) => Promise<any>;
+    onDeleteFeedback: (id: string) => Promise<any>;
+    onValidateError: (errType: "empty") => void;
+    onError: (error: unknown) => void;
+    onCommentChanged: () => void;
+    onFeedbackChanged: () => void;
+  };
 }
 
 export const FeedbackDetailPageContent = ({
-  feedbackId,
+  feedback,
+  isFeedbackLoading,
+  feedbackError,
+  comments: commentsData,
+  isCommentsLoading,
+  currentUser,
   onClose,
+  callbacks,
   isDialog = false,
-  user,
 }: FeedbackDetailPageContentProps) => {
   const {
     commentEditorRef,
@@ -42,158 +74,152 @@ export const FeedbackDetailPageContent = ({
   const [replyingToId, setReplyingToId] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isEditingFeedback, setIsEditingFeedback] = useState(false);
+  const titleInputRef = useRef<HTMLInputElement | null>(null);
+  const [isCommentCreating, startCommentCreating] = useTransition();
+  const [isCommentUpdating, startCommentUpdating] = useTransition();
+  const [isCommentDeleting, startCommentDeleting] = useTransition();
+  const [isFeedbackUpdating, startFeedbackUpdating] = useTransition();
 
-  const {
-    data: feedback,
-    isLoading: isFeedbackLoading,
-    error: feedbackError,
-  } = useFeedbackDetail(feedbackId || null);
-  const { data: commentsData, isLoading: isCommentsLoading } =
-    useFeedbackComments(feedbackId || null);
-  const createComment = useCreateFeedbackComment();
-  const deleteComment = useDeleteFeedbackComment();
-  const updateComment = useUpdateFeedbackComment();
-  const updateFeedback = useUpdateFeedback();
-  const deleteFeedback = useDeleteFeedback();
-
-  const comments = commentsData?.comments || [];
+  const comments = commentsData || [];
 
   const handleSubmitComment = async () => {
     const body = getEditorContent(commentEditorRef);
     if (!validateContent(body)) {
-      alert("댓글 내용을 입력해주세요.");
-      return;
+      return callbacks.onValidateError("empty");
     }
 
-    if (!feedbackId) return;
+    if (!feedback?.id) return;
 
-    try {
-      await createComment.mutateAsync({
-        feedbackId,
-        data: { body },
-      });
-      clearEditor(commentEditorRef);
-      setIsCommentEditOpen(false);
-    } catch (error) {
-      console.error("댓글 작성 실패:", error);
-      alert("댓글 작성에 실패했습니다.");
-    }
+    startCommentCreating(async () => {
+      try {
+        await callbacks.onCommentCreate(feedback.id, { body });
+        clearEditor(commentEditorRef);
+        setIsCommentEditOpen(false);
+        callbacks.onCommentChanged();
+      } catch (error) {
+        callbacks.onError(error);
+      }
+    });
   };
 
   const handleSubmitReply = async (parentCommentId: string) => {
     const body = getEditorContent(replyEditorRef);
     if (!validateContent(body)) {
-      alert("댓글 내용을 입력해주세요.");
-      return;
+      return callbacks.onValidateError("empty");
     }
 
-    if (!feedbackId) return;
+    if (!feedback?.id) return;
 
-    try {
-      await createComment.mutateAsync({
-        feedbackId,
-        data: {
+    startCommentCreating(async () => {
+      try {
+        await callbacks.onCommentCreate(feedback.id, {
           body,
           refId: parentCommentId,
-        },
-      });
-      clearEditor(replyEditorRef);
-      setReplyingToId(null);
-    } catch (error) {
-      console.error("대댓글 작성 실패:", error);
-      alert("대댓글 작성에 실패했습니다.");
-    }
+        });
+        clearEditor(replyEditorRef);
+        setReplyingToId(null);
+        callbacks.onCommentChanged();
+      } catch (error) {
+        callbacks.onError(error);
+      }
+    });
   };
 
   const handleSubmitEdit = async (commentId: string) => {
     const body = getEditorContent(editEditorRef);
     if (!validateContent(body)) {
-      alert("댓글 내용을 입력해주세요.");
-      return;
+      return callbacks.onValidateError("empty");
     }
 
-    try {
-      await updateComment.mutateAsync({
-        commentId,
-        data: { body },
-      });
-      setEditingId(null);
-      clearEditor(editEditorRef);
-    } catch (error) {
-      console.error("댓글 수정 실패:", error);
-      alert("댓글 수정에 실패했습니다.");
-    }
+    startCommentUpdating(async () => {
+      try {
+        await callbacks.onCommentUpdate(commentId, { body });
+        setEditingId(null);
+        clearEditor(editEditorRef);
+        callbacks.onCommentChanged();
+      } catch (error) {
+        callbacks.onError(error);
+      }
+    });
   };
 
   const handleDelete = async (commentId: string) => {
     if (!confirm("댓글을 삭제하시겠습니까?")) return;
 
-    try {
-      await deleteComment.mutateAsync(commentId);
-    } catch (error) {
-      console.error("댓글 삭제 실패:", error);
-      alert("댓글 삭제에 실패했습니다.");
-    }
+    startCommentDeleting(async () => {
+      try {
+        await callbacks.onCommentDelete(commentId);
+        callbacks.onCommentChanged();
+      } catch (error) {
+        callbacks.onError(error);
+      }
+    });
   };
 
   const handleSubmitFeedbackEdit = async () => {
+    const title = titleInputRef.current?.value || "";
     const body = getEditorContent(feedbackEditorRef);
-    if (!validateContent(body)) {
-      alert("피드백 내용을 입력해주세요.");
+
+    if (!validateContent(title)) {
+      callbacks.onValidateError("empty");
       return;
     }
 
-    if (!feedbackId || !feedback) return;
+    if (!validateContent(body)) {
+      callbacks.onValidateError("empty");
+      return;
+    }
 
-    try {
-      await updateFeedback.mutateAsync({
-        id: feedbackId,
-        data: {
+    if (!feedback) return;
+
+    startFeedbackUpdating(async () => {
+      try {
+        await callbacks.onFeedbackUpdate(feedback.id, {
           feedbackDetail: {
-            title: feedback.feedbackDetail.title,
+            title,
             body,
           },
-        },
-      });
-      setIsEditingFeedback(false);
-      clearEditor(feedbackEditorRef);
-    } catch (error) {
-      console.error("피드백 수정 실패:", error);
-      alert("피드백 수정에 실패했습니다.");
-    }
+        });
+        setIsEditingFeedback(false);
+        clearEditor(feedbackEditorRef);
+        callbacks.onFeedbackChanged();
+      } catch (error) {
+        callbacks.onError(error);
+      }
+    });
   };
 
   const handleStatusChange = async () => {
-    if (!feedbackId || !feedback) return;
+    if (!feedback) return;
 
-    try {
-      const newStatus = feedback.status === "pending" ? "resolved" : "pending";
-      await updateFeedback.mutateAsync({
-        id: feedbackId,
-        data: { status: newStatus },
-      });
-    } catch (error) {
-      console.error("피드백 상태 변경 실패:", error);
-      alert("상태 변경에 실패했습니다.");
-    }
+    startFeedbackUpdating(async () => {
+      try {
+        const newStatus =
+          feedback.status === "pending" ? "resolved" : "pending";
+        await callbacks.onFeedbackStatusUpdate?.(feedback.id, {
+          status: newStatus,
+        });
+        callbacks.onFeedbackChanged();
+      } catch (error) {
+        callbacks.onError(error);
+      }
+    });
   };
 
   const handleDeleteFeedback = async () => {
     if (!confirm("피드백을 삭제하시겠습니까?")) return;
 
-    if (!feedbackId) return;
+    if (!feedback?.id) return;
 
     try {
-      await deleteFeedback.mutateAsync(feedbackId);
-      alert("피드백이 삭제되었습니다.");
+      await callbacks.onDeleteFeedback(feedback.id); 
       if (onClose) {
         onClose();
       } else {
         window.close();
       }
     } catch (error) {
-      console.error("피드백 삭제 실패:", error);
-      alert("피드백 삭제에 실패했습니다.");
+      callbacks.onError(error);
     }
   };
 
@@ -269,7 +295,7 @@ export const FeedbackDetailPageContent = ({
         <div className="mx-auto max-w-4xl px-6 py-6">
           <FeedbackHeader
             feedback={feedback}
-            currentUserId={user?.id}
+            currentUserId={currentUser?.id}
             onEditClick={() => setIsEditingFeedback(true)}
             onDeleteClick={handleDeleteFeedback}
           />
@@ -277,9 +303,10 @@ export const FeedbackDetailPageContent = ({
           <FeedbackBody
             feedback={feedback}
             isEditing={isEditingFeedback}
-            isUpdating={updateFeedback.isPending}
-            currentUserRole={user?.role}
+            isUpdating={isFeedbackUpdating}
+            currentUserRole={currentUser?.role}
             feedbackEditorRef={feedbackEditorRef}
+            titleInputRef={titleInputRef}
             onEditCancel={() => setIsEditingFeedback(false)}
             onEditSave={handleSubmitFeedbackEdit}
             onStatusChange={handleStatusChange}
@@ -294,7 +321,7 @@ export const FeedbackDetailPageContent = ({
             onCommentEditOpen={setIsCommentEditOpen}
             commentEditorRef={commentEditorRef}
             onSubmitComment={handleSubmitComment}
-            isSubmitting={createComment.isPending}
+            isSubmitting={isCommentCreating}
             replyingToId={replyingToId}
             onReplyOpen={setReplyingToId}
             replyEditorRef={replyEditorRef}
@@ -304,8 +331,8 @@ export const FeedbackDetailPageContent = ({
             editEditorRef={editEditorRef}
             onSubmitEdit={handleSubmitEdit}
             onDelete={handleDelete}
-            isEditing={updateComment.isPending || deleteComment.isPending}
-            currentUserId={user?.id}
+            isEditing={isCommentUpdating || isCommentDeleting}
+            currentUserId={currentUser?.id}
           />
         </div>
       </div>

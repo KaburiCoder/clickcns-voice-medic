@@ -18,31 +18,26 @@
   "types": "./dist/es.d.ts",
   "exports": {
     ".": {
-      "development": "./src/index.ts",
       "types": "./dist/es.d.ts",
       "import": "./dist/es.js",
       "require": "./dist/cjs.js"
     },
     "./api": {
-      "development": "./src/api/index.ts",
       "types": "./dist/api/index.d.ts",
       "import": "./dist/es/api/index.js",
       "require": "./dist/cjs/api/index.js"
     },
     "./types": {
-      "development": "./src/types/index.ts",
       "types": "./dist/types/index.d.ts",
       "import": "./dist/es/types/index.js",
       "require": "./dist/cjs/types/index.js"
     },
     "./ui": {
-      "development": "./src/ui/index.ts",
       "types": "./dist/ui/index.d.ts",
       "import": "./dist/es/ui/index.js",
       "require": "./dist/cjs/ui/index.js"
     },
     "./shadcn-ui": {
-      "development": "./src/shadcn-ui/index.ts",
       "types": "./dist/shadcn-ui/index.d.ts",
       "import": "./dist/es/shadcn-ui/index.js",
       "require": "./dist/cjs/shadcn-ui/index.js"

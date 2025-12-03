@@ -13,6 +13,7 @@ interface FeedbackBodyProps {
   isUpdating: boolean;
   currentUserRole: string | undefined;
   feedbackEditorRef: React.RefObject<TiptapEditorRefs | null>;
+  titleInputRef: React.RefObject<HTMLInputElement | null>;
   onEditCancel: () => void;
   onEditSave: () => Promise<void>;
   onStatusChange: () => Promise<void>;
@@ -24,6 +25,7 @@ export const FeedbackBody = ({
   isUpdating,
   currentUserRole,
   feedbackEditorRef,
+  titleInputRef,
   onEditCancel,
   onEditSave,
   onStatusChange,
@@ -31,16 +33,30 @@ export const FeedbackBody = ({
   return (
     <div className="mb-6">
       {isEditing ? (
-        <CommentEditor
-          ref={feedbackEditorRef}
-          initialContent={feedback.feedbackDetail.body}
-          isSubmitting={isUpdating}
-          onSubmit={onEditSave}
-          onCancel={onEditCancel}
-          submitLabel="수정"
-          labelText="피드백 수정"
-          showLabel={true}
-        />
+        <div className="flex flex-col gap-4">
+          <div className="rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50">
+            <label className="mb-2 block text-xs font-medium text-gray-700 dark:text-gray-300">
+              제목
+            </label>
+            <input
+              ref={titleInputRef}
+              type="text"
+              defaultValue={feedback.feedbackDetail.title}
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder-gray-500"
+              placeholder="피드백 제목을 입력하세요"
+            />
+          </div>
+          <CommentEditor
+            tiptapRef={feedbackEditorRef}
+            initialContent={feedback.feedbackDetail.body}
+            isSubmitting={isUpdating}
+            onSubmit={onEditSave}
+            onCancel={onEditCancel}
+            submitLabel="수정"
+            labelText="피드백 수정"
+            showLabel={true}
+          />
+        </div>
       ) : (
         <>
           {/* 본문 내용 */}

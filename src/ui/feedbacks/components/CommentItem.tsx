@@ -1,10 +1,10 @@
-import { Button } from  "../../../shadcn-ui";
+import { Button } from "../../../shadcn-ui";
 import { ContentDiv } from "@kaburi/react-kit/tiptap";
 import { format } from "date-fns";
 import type { TiptapEditorRefs } from "@kaburi/react-kit/tiptap";
 import React from "react";
 import { CommentEditor } from "./CommentEditor";
-import { CommentActions } from "./CommentActions"; 
+import { CommentActions } from "./CommentActions";
 import type { FeedbackComment } from "../../../types";
 import { cn } from "../../../lib/utils";
 
@@ -44,6 +44,7 @@ export const CommentItem = ({
   const isReplying = replyingToId === comment.id;
   const isEditingThis = editingId === comment.id;
   const hasChildren = comment.children && comment.children.length > 0;
+  const replyEditorContainerId = `reply-editor-${comment.id}`;
 
   return (
     <div
@@ -54,7 +55,7 @@ export const CommentItem = ({
     >
       {isEditingThis ? (
         <CommentEditor
-          ref={editEditorRef}
+          tiptapRef={editEditorRef}
           initialContent={comment.body}
           isSubmitting={isEditing}
           onSubmit={() => onSubmitEdit(comment.id)}
@@ -87,18 +88,38 @@ export const CommentItem = ({
               </div>
 
               {/* 답글 버튼 */}
-              <div className="mt-2 flex items-center gap-3">
-                {level < 2 && (
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onClick={() => onReplyOpen(comment.id)}
-                    className="h-auto px-2 py-1 text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
-                  >
-                    💬 답글
-                  </Button>
-                )}
-              </div>
+              {!isReplying && (
+                <div className="mt-2 flex items-center gap-3">
+                  {level < 2 && (
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => {
+                        onReplyOpen(comment.id);
+                        setTimeout(() => {
+                          const editorElement = document.getElementById(
+                            replyEditorContainerId
+                          );
+                          if (editorElement) {
+                            editorElement.scrollIntoView({
+                              behavior: "auto",
+                              block: "center",
+                            });
+                            const contentEditableElement =
+                              editorElement.querySelector(
+                                "[contenteditable]"
+                              ) as HTMLElement;
+                            contentEditableElement?.focus();
+                          }
+                        }, 50);
+                      }}
+                      className="h-auto px-2 py-1 text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+                    >
+                      💬 답글
+                    </Button>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* 액션 버튼 (수정/삭제) */}
@@ -115,7 +136,12 @@ export const CommentItem = ({
       {/* 대댓글 입력 */}
       {isReplying && (
         <CommentEditor
-          ref={replyEditorRef}
+          ref={(element) => {
+            if (element) {
+              element.id = replyEditorContainerId;
+            }
+          }}
+          tiptapRef={replyEditorRef}
           isSubmitting={isSubmitting}
           onSubmit={() => onSubmitReply(comment.id)}
           onCancel={() => onReplyOpen("")}

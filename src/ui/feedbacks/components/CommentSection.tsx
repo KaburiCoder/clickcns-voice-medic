@@ -69,7 +69,7 @@ export const CommentSection = ({
       {/* 댓글 입력 - 토글 상태 */}
       {isCommentEditOpen && (
         <CommentEditor
-          ref={commentEditorRef}
+          tiptapRef={commentEditorRef}
           isSubmitting={isSubmitting}
           onSubmit={onSubmitComment}
           onCancel={() => onCommentEditOpen(false)}
