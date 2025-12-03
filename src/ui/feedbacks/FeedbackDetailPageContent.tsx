@@ -212,7 +212,8 @@ export const FeedbackDetailPageContent = ({
     if (!feedback?.id) return;
 
     try {
-      await callbacks.onDeleteFeedback(feedback.id); 
+      await callbacks.onDeleteFeedback(feedback.id);
+      callbacks.onFeedbackChanged();
       if (onClose) {
         onClose();
       } else {

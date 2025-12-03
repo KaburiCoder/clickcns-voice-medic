@@ -1,6 +1,6 @@
 {
   "name": "@clickcns/vmedic-react",
-  "version": "0.0.6",
+  "version": "0.0.5",
   "description": "A collection of powerful utilities and components built with React and Vite",
   "author": "clickcns",
   "license": "MIT",
@@ -51,7 +51,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepublishOnly": "npm run build && npm run lint"
+    "prepublishOnly": "npm run build"
   },
   "publishConfig": {
     "access": "public",

@@ -15,9 +15,7 @@ export const useCommentEditor = () => {
     editor?.editor?.commands?.clearContent?.();
   };
 
-  const getEditorContent = (
-    ref: React.RefObject<TiptapEditorRefs | null>
-  ): any => {
+  const getEditorContent = (ref: React.RefObject<TiptapEditorRefs | null>) => {
     return ref.current?.getJSON?.() ?? "";
   };
 
