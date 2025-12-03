@@ -1,6 +1,6 @@
-import type { PartnerDto } from "@/types";
+import type { PartnerDto } from "../../types";
 import { apiClient } from "../axios";
-import type { CreatePartnerRequest, UpdatePartnerRequest } from "@/types/api";
+import type { CreatePartnerRequest, UpdatePartnerRequest } from "../../types/api";
 
 export const partnersApi = {
   // 모든 파트너 조회

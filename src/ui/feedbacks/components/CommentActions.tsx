@@ -4,7 +4,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from "@/shadcn-ui";
+} from "../../../shadcn-ui";
 
 interface CommentActionsProps {
   onEdit: () => void;

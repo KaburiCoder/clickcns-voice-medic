@@ -1,8 +1,8 @@
 import { MoreHorizontal, Edit2, Trash2 } from "lucide-react";
 import { format } from "date-fns";
-import { cn } from "@/lib/utils";
-import { Button, Popover, PopoverContent, PopoverTrigger } from "@/shadcn-ui";
-import type { Feedback } from "@/types";
+import { Button, Popover, PopoverContent, PopoverTrigger } from  "../../../shadcn-ui";
+import type { Feedback } from "../../../types";
+import { cn } from "../../../lib/utils";
 
 interface FeedbackHeaderProps {
   feedback: Feedback;

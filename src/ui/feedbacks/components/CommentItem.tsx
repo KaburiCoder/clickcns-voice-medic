@@ -1,12 +1,12 @@
-import { Button } from "@/shadcn-ui";
+import { Button } from  "../../../shadcn-ui";
 import { ContentDiv } from "@kaburi/react-kit/tiptap";
 import { format } from "date-fns";
-import { cn } from "@/lib/utils";
 import type { TiptapEditorRefs } from "@kaburi/react-kit/tiptap";
 import React from "react";
 import { CommentEditor } from "./CommentEditor";
-import { CommentActions } from "./CommentActions";
-import type { FeedbackComment } from "@/types";
+import { CommentActions } from "./CommentActions"; 
+import type { FeedbackComment } from "../../../types";
+import { cn } from "../../../lib/utils";
 
 interface CommentItemProps {
   comment: FeedbackComment;

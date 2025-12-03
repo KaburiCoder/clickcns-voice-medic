@@ -1,4 +1,4 @@
-import type { SendNotificationRequest } from "@/types";
+import type { SendNotificationRequest } from "../../types";
 import { apiClient } from "../axios";
 
 export const pushApi = {

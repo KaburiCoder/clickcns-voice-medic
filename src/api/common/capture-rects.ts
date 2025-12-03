@@ -3,7 +3,7 @@ import type {
   CreateCaptureRectRequest,
   DeleteCaptureRectResponse,
   UpdateCaptureRectRequest,
-} from "@/types";
+} from "../../types";
 import { apiClient } from "../axios";
 
 export const captureRectsApi = {

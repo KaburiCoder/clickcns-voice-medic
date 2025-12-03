@@ -1,4 +1,4 @@
-import { apiClient } from "@/api/axios";
+import { apiClient } from "../../api/axios";
 import type {
   Feedback,
   FeedbackListResponse,
@@ -7,7 +7,7 @@ import type {
   FeedbackComment,
   FeedbackCommentsResponse,
   CreateFeedbackCommentRequest,
-} from "@/types";
+} from "../../types";
 
 export const feedbackApi = {
   // 피드백 목록 조회 (페이지네이션)

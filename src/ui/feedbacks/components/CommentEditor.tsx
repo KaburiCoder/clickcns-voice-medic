@@ -2,7 +2,7 @@ import { Loader2, Send } from "lucide-react";
 import { TiptapEditor } from "@kaburi/react-kit/tiptap";
 import type { TiptapEditorRefs } from "@kaburi/react-kit/tiptap";
 import React from "react";
-import { Button } from "@/shadcn-ui";
+import { Button } from  "../../../shadcn-ui";
 
 interface CommentEditorProps {
   ref?: React.Ref<TiptapEditorRefs>;

@@ -8,11 +8,11 @@
     "types": ["vite/client"],
     "skipLibCheck": true,
 
-    /* Paths alias for @/ */
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
+    // /* Paths alias for @/ */
+    // "baseUrl": ".",
+    // "paths": {
+    //   "@/*": ["src/*"]
+    // },
 
     /* Bundler mode */
     "moduleResolution": "bundler",

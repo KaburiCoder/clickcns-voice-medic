@@ -1,11 +1,11 @@
 import { Loader2, RefreshCw } from "lucide-react";
 import { ContentDiv } from "@kaburi/react-kit/tiptap";
-import { cn } from "@/lib/utils";
 import type { TiptapEditorRefs } from "@kaburi/react-kit/tiptap";
 import React from "react";
 import { CommentEditor } from "./CommentEditor";
-import { Button } from "@/shadcn-ui";
-import type { Feedback } from "@/types";
+import { Button } from "../../../shadcn-ui";
+import type { Feedback } from "../../../types";
+import { cn } from "../../../lib/utils";
 
 interface FeedbackBodyProps {
   feedback: Feedback;

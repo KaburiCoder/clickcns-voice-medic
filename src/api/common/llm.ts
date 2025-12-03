@@ -6,7 +6,7 @@ import type {
   MedicalSummaryRequest,
   MedicalSummaryResponse,
   MindmapResponse
-} from "@/types";
+} from "../../types";
 import { apiClient } from "../axios";
 
 export const llmApi = {

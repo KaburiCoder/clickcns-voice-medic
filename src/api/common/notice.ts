@@ -1,4 +1,4 @@
-import type { CreateNoticeRequest, Notice, NoticeListRequest, NoticeListResponse, UpdateNoticeRequest } from "@/types";
+import type { CreateNoticeRequest, Notice, NoticeListRequest, NoticeListResponse, UpdateNoticeRequest } from "../../types";
 import { apiClient } from "../axios";
 
 export const noticeApi = {

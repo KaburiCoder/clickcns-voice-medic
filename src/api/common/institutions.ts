@@ -1,4 +1,4 @@
-import type { Institution } from "@/types";
+import type { Institution } from "../../types";
 import { apiClient } from "../axios";
 
 export const institutionsApi = {

@@ -1,6 +1,10 @@
-import { feedbackApi } from "@/api";
-import type { CreateFeedbackCommentRequest, CreateFeedbackRequest, FeedbackListRequest } from "@/types";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { feedbackApi } from "../../../api";
+import type {
+  CreateFeedbackCommentRequest,
+  CreateFeedbackRequest,
+  FeedbackListRequest,
+} from "../../../types";
 
 const FEEDBACKS_QUERY_KEY = ["feedbacks"];
 

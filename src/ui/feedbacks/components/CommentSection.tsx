@@ -1,10 +1,10 @@
 import { Loader2, Send } from "lucide-react";
-import { Button, Separator } from "@/shadcn-ui";
+import { Button, Separator } from "../../../shadcn-ui";
 import type { TiptapEditorRefs } from "@kaburi/react-kit/tiptap";
 import React from "react";
 import { CommentItem } from "./CommentItem";
 import { CommentEditor } from "./CommentEditor";
-import type { FeedbackComment } from "@/types";
+import type { FeedbackComment } from "../../../types";
 
 interface CommentSectionProps {
   comments: FeedbackComment[];

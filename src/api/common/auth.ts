@@ -3,7 +3,7 @@ import type {
   LoginRequest,
   RegisterRequest,
   UserDto,
-} from "@/types";
+} from "../../types";
 import { apiClient } from "../axios";
 
 export const authApi = {

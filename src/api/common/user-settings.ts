@@ -1,4 +1,4 @@
-import type { UpsertUserSettingRequest, UserSetting } from "@/types";
+import type { UpsertUserSettingRequest, UserSetting } from "../../types";
 import { apiClient } from "../axios";
 
 export const userSettingsApi = {

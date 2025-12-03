@@ -9,10 +9,10 @@ import {
   useUpdateFeedbackComment,
   useCommentEditor,
 } from "./hooks";
-import type { UserDto } from "@/types";
+import type { UserDto } from "../../types";
 import { AlertCircle, Loader2 } from "lucide-react";
-import { Button, Separator } from "@/shadcn-ui";
-import { cn } from "@/lib/utils";
+import { Button, Separator } from "../../shadcn-ui";
+import { cn } from "../../lib/utils";
 import { CommentSection, FeedbackBody, FeedbackHeader } from "./components";
 
 interface FeedbackDetailPageContentProps {
