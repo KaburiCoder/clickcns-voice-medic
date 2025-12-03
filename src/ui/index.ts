@@ -1,0 +1,1 @@
+export { FeedbackDetailPageContent } from "./feedbacks";
