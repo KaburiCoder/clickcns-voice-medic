@@ -1,22 +1,29 @@
 import { MoreHorizontal, Edit2, Trash2 } from "lucide-react";
+import { Eye } from "lucide-react";
 import { format } from "date-fns";
 import { Button, Popover, PopoverContent, PopoverTrigger } from  "../../../shadcn-ui";
-import type { Feedback } from "../../../types";
+import type { Feedback, UserDto } from "../../../types";
 import { cn } from "../../../lib/utils";
 
 interface FeedbackHeaderProps {
   feedback: Feedback;
   currentUserId: string | undefined;
+  currentUser?: UserDto;
   onEditClick: () => void;
   onDeleteClick: () => void;
+  onViewDetailClick?: (recordId: string) => void;
 }
 
 export const FeedbackHeader = ({
   feedback,
   currentUserId,
+  currentUser,
   onEditClick,
   onDeleteClick,
+  onViewDetailClick,
 }: FeedbackHeaderProps) => {
+  const hasRecordId = !!feedback.feedbackDetail.recordId;
+  const isAdmin = currentUser?.role === "admin";
   return (
     <div className="mb-6 flex items-start justify-between">
       <div className="flex-1">
@@ -56,41 +63,60 @@ export const FeedbackHeader = ({
       </div>
 
       {/* 메뉴 버튼 */}
-      {currentUserId === feedback.userId && (
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-auto px-2 py-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-            >
-              <MoreHorizontal className="h-5 w-5" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-1 pointer-events-auto">
-            <div className="flex flex-col gap-1">
+      <div className="flex items-center gap-2">
+        {/* 상세보기 버튼 (Admin만 보임) */}
+        {hasRecordId && isAdmin && (
+          <Button
+            size="sm"
+            variant="default"
+            onClick={() => {
+              if (feedback.feedbackDetail.recordId) {
+                onViewDetailClick?.(feedback.feedbackDetail.recordId);
+              }
+            }}
+            className="flex items-center gap-1 text-xs"
+          >
+            <Eye className="h-3 w-3" />
+            상세보기
+          </Button>
+        )}
+
+        {currentUserId === feedback.userId && (
+          <Popover>
+            <PopoverTrigger asChild>
               <Button
                 size="sm"
                 variant="ghost"
-                onClick={onEditClick}
-                className="justify-start text-xs text-gray-700 dark:text-gray-300"
+                className="h-auto px-2 py-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               >
-                <Edit2 className="mr-2 h-3 w-3" />
-                수정
+                <MoreHorizontal className="h-5 w-5" />
               </Button>
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={onDeleteClick}
-                className="justify-start text-xs text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-              >
-                <Trash2 className="mr-2 h-3 w-3" />
-                삭제
-              </Button>
-            </div>
-          </PopoverContent>
-        </Popover>
-      )}
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-1 pointer-events-auto">
+              <div className="flex flex-col gap-1">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={onEditClick}
+                  className="justify-start text-xs text-gray-700 dark:text-gray-300"
+                >
+                  <Edit2 className="mr-2 h-3 w-3" />
+                  수정
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={onDeleteClick}
+                  className="justify-start text-xs text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                >
+                  <Trash2 className="mr-2 h-3 w-3" />
+                  삭제
+                </Button>
+              </div>
+            </PopoverContent>
+          </Popover>
+        )}
+      </div>
     </div>
   );
 };

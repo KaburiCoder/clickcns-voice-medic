@@ -46,6 +46,7 @@ interface FeedbackDetailPageContentProps {
     onError: (error: unknown) => void;
     onCommentChanged: () => void;
     onFeedbackChanged: () => void;
+    onViewRecordDetail?: (recordId: string) => void;
   };
 }
 
@@ -297,8 +298,10 @@ export const FeedbackDetailPageContent = ({
           <FeedbackHeader
             feedback={feedback}
             currentUserId={currentUser?.id}
+            currentUser={currentUser}
             onEditClick={() => setIsEditingFeedback(true)}
             onDeleteClick={handleDeleteFeedback}
+            onViewDetailClick={(recordId) => callbacks.onViewRecordDetail?.(recordId)}
           />
 
           <FeedbackBody
