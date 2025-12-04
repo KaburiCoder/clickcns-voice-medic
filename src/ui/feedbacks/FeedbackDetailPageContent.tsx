@@ -21,6 +21,7 @@ interface FeedbackDetailPageContentProps {
   currentUser: UserDto | undefined;
   onClose?: () => void;
   isDialog?: boolean;
+  showHeader?: boolean;
   callbacks: {
     onCommentCreate: (
       feedbackId: string,
@@ -60,6 +61,7 @@ export const FeedbackDetailPageContent = ({
   onClose,
   callbacks,
   isDialog = false,
+  showHeader = true,
 }: FeedbackDetailPageContentProps) => {
   const {
     commentEditorRef,
@@ -283,25 +285,28 @@ export const FeedbackDetailPageContent = ({
         isDialog ? "h-auto" : "min-h-screen"
       )}
     >
-      <div className="shrink-0 border-b border-gray-200 py-4 dark:border-gray-700">
-        <div className="mx-auto max-w-4xl px-6">
-          <div className="flex items-center justify-between">
-            <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              피드백 상세
-            </h1>
+      {showHeader && (
+        <div className="shrink-0 border-b border-gray-200 py-4 dark:border-gray-700">
+          <div className="max-w-5xl px-6">
+            <div className="flex items-center justify-between">
+              <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                피드백 상세
+              </h1>
+            </div>
           </div>
         </div>
-      </div>
-
+      )}
       <div className="bg-background flex-1 overflow-y-auto">
-        <div className="mx-auto max-w-4xl px-6 py-6">
+        <div className="max-w-5xl px-6 py-6">
           <FeedbackHeader
             feedback={feedback}
             currentUserId={currentUser?.id}
             currentUser={currentUser}
             onEditClick={() => setIsEditingFeedback(true)}
             onDeleteClick={handleDeleteFeedback}
-            onViewDetailClick={(recordId) => callbacks.onViewRecordDetail?.(recordId)}
+            onViewDetailClick={(recordId) =>
+              callbacks.onViewRecordDetail?.(recordId)
+            }
           />
 
           <FeedbackBody
