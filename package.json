@@ -41,6 +41,21 @@
       "types": "./dist/shadcn-ui/index.d.ts",
       "import": "./dist/es/shadcn-ui/index.js",
       "require": "./dist/cjs/shadcn-ui/index.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/es/hooks/index.js",
+      "require": "./dist/cjs/hooks/index.js"
+    },
+    "./hooks.user-notifications": {
+      "types": "./dist/hooks/user-notifications/index.d.ts",
+      "import": "./dist/es/hooks/user-notifications/index.js",
+      "require": "./dist/cjs/hooks/user-notifications/index.js"
+    },
+    "./hooks.feedbacks": {
+      "types": "./dist/hooks/feedbacks/index.d.ts",
+      "import": "./dist/es/hooks/feedbacks/index.js",
+      "require": "./dist/cjs/hooks/feedbacks/index.js"
     }
   },
   "files": [

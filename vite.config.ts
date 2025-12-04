@@ -45,7 +45,14 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: generateEntries(),
+      entry: {
+        ...generateEntries(),
+        "hooks.user-notifications": resolve(
+          __dirname,
+          "src/hooks/user-notifications/index.ts"
+        ),
+        "hooks.feedbacks": resolve(__dirname, "src/hooks/feedbacks/index.ts"),
+      },
       name: "VitePublish",
       formats: ["es", "cjs"],
       fileName: (format, entryName) => {

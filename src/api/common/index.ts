@@ -9,3 +9,4 @@ export * from "./partners";
 export * from "./push";
 export * from "./user-settings";
 export * from './institutions';
+export * from './user-notifications';

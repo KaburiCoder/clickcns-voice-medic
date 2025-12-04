@@ -12,7 +12,7 @@ export interface FeedbackDetail {
 export interface Feedback {
   id: string;
   userId: string;
-  status: 'pending' | 'resolved';
+  status: "pending" | "resolved";
   userName: string;
   institutionName: string | null;
   createdAt: string;
@@ -20,8 +20,12 @@ export interface Feedback {
   feedbackDetail: FeedbackDetail;
 }
 
+export interface FeedbackExtended extends Feedback {
+  unreadNotificationCount: number;
+}
+
 export interface FeedbackListResponse {
-  feedbacks: Feedback[];
+  feedbacks: FeedbackExtended[];
   currentPage: number;
   totalPages: number;
   totalCount: number;
@@ -30,7 +34,7 @@ export interface FeedbackListResponse {
 export interface FeedbackListRequest {
   page?: number;
   count?: number;
-  status?: 'pending' | 'resolved';
+  status?: "pending" | "resolved";
 }
 
 export interface CreateFeedbackRequest {
