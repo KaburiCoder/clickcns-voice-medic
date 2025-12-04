@@ -67,7 +67,7 @@ export const FeedbackHeader = ({
               <MoreHorizontal className="h-5 w-5" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-1">
+          <PopoverContent className="w-auto p-1 pointer-events-auto">
             <div className="flex flex-col gap-1">
               <Button
                 size="sm"

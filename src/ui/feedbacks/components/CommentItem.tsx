@@ -7,6 +7,7 @@ import { CommentEditor } from "./CommentEditor";
 import { CommentActions } from "./CommentActions";
 import type { FeedbackComment } from "../../../types";
 import { cn } from "../../../lib/utils";
+import { focusEditor } from "../utils/focusEditor";
 
 interface CommentItemProps {
   comment: FeedbackComment;
@@ -96,22 +97,7 @@ export const CommentItem = ({
                       variant="ghost"
                       onClick={() => {
                         onReplyOpen(comment.id);
-                        setTimeout(() => {
-                          const editorElement = document.getElementById(
-                            replyEditorContainerId
-                          );
-                          if (editorElement) {
-                            editorElement.scrollIntoView({
-                              behavior: "auto",
-                              block: "center",
-                            });
-                            const contentEditableElement =
-                              editorElement.querySelector(
-                                "[contenteditable]"
-                              ) as HTMLElement;
-                            contentEditableElement?.focus();
-                          }
-                        }, 50);
+                        focusEditor(replyEditorContainerId, 50);
                       }}
                       className="h-auto px-2 py-1 text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
                     >

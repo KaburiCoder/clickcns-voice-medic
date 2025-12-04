@@ -5,6 +5,7 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "../../../shadcn-ui";
+import { focusEditor } from "../utils/focusEditor";
 
 interface CommentActionsProps {
   onEdit: () => void;
@@ -12,6 +13,11 @@ interface CommentActionsProps {
 }
 
 export const CommentActions = ({ onEdit, onDelete }: CommentActionsProps) => {
+  const handleEditClick = () => {
+    onEdit();
+    focusEditor();
+  };
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -23,12 +29,12 @@ export const CommentActions = ({ onEdit, onDelete }: CommentActionsProps) => {
           <MoreHorizontal className="h-5 w-5" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-1">
+      <PopoverContent className="w-auto p-1 pointer-events-auto">
         <div className="flex flex-col gap-1">
           <Button
             size="sm"
             variant="ghost"
-            onClick={onEdit}
+            onClick={handleEditClick}
             className="justify-start text-xs text-gray-700 dark:text-gray-300"
           >
             <Edit2 className="mr-2 h-3 w-3" />
