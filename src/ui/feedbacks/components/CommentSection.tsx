@@ -58,7 +58,18 @@ export const CommentSection = ({
           <Button
             size="sm"
             variant="outline"
-            onClick={() => onCommentEditOpen(true)}
+            onClick={() => {
+              onCommentEditOpen(true);
+              setTimeout(() => {
+                // 댓글 에디터 영역 내의 contenteditable 요소를 찾기
+                const editorArea = document.querySelectorAll(
+                  "[contenteditable]"
+                );
+                // 마지막에 추가된 것을 선택 (가장 최근의 에디터)
+                const latestEditor = editorArea[editorArea.length - 1];
+                (latestEditor as HTMLElement)?.focus();
+              }, 100);
+            }}
           >
             <Send className="mr-2 h-4 w-4" />
             댓글 작성
