@@ -1,5 +1,11 @@
 import { apiClient } from "../../axios";
-import type { TranscribeV2Response, TranscribeWithTranslationResponse, UploadRequest, UploadResponse, UploadWithTranslationRequest } from "../../../types/api";
+import type {
+  TranscribeV2Response,
+  TranscribeWithTranslationResponse,
+  UploadRequest,
+  UploadResponse,
+  UploadV3Request,
+} from "../../../types/api";
 import { speechChat } from "./speech-chat";
 import { speechRecords } from "./speech-records";
 import { speechPatients } from "./speech-patients";
@@ -41,6 +47,14 @@ export const speechApi = {
     return transcribeWithEndpoint("/speech/transcribe-v2", buffer);
   },
 
+  transcribeV3: async ({
+    buffer,
+  }: {
+    buffer: ArrayBuffer | Blob;
+  }): Promise<TranscribeV2Response> => {
+    return transcribeWithEndpoint("/speech/transcribe-v3", buffer);
+  },
+
   transcribeWithTranslation: async ({
     buffer,
     language,
@@ -55,14 +69,14 @@ export const speechApi = {
     );
   },
 
-  uploadWithTranslation: async ({
+  uploadV3: async ({
     opusBlob,
     chart,
     recordId,
     transcript,
     transcripts,
     durationSeconds,
-  }: UploadWithTranslationRequest): Promise<UploadResponse> => {
+  }: UploadV3Request): Promise<UploadResponse> => {
     const formData = new FormData();
     formData.append(
       "opusFile",

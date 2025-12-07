@@ -25,7 +25,7 @@ export interface UploadRequest extends UploadBlobs {
   recordId?: string;
 }
 
-export interface UploadWithTranslationRequest {
+export interface UploadV3Request {
   opusBlob: ArrayBuffer | Blob;
   chart: string;
   transcript: string;
