@@ -40,7 +40,8 @@ export default defineConfig({
     dts({
       tsconfigPath: "./tsconfig.app.json",
       rollupTypes: false,
-      outDir: "dist",
+      outDir: ["dist/es", "dist/cjs"],
+      entryRoot: "src",
     }),
   ],
   build: {

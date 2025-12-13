@@ -17,42 +17,50 @@
   "module": "./dist/es.js",
   "types": "./dist/es.d.ts",
   "exports": {
-    ".": {
+    ".": {      
+      "development": "./src/index.ts",
       "types": "./dist/es.d.ts",
       "import": "./dist/es.js",
       "require": "./dist/cjs.js"
     },
     "./api": {
+      "development": "./src/api/index.ts",
       "types": "./dist/api/index.d.ts",
       "import": "./dist/es/api/index.js",
       "require": "./dist/cjs/api/index.js"
     },
     "./types": {
+      "development": "./src/types/index.ts",
       "types": "./dist/types/index.d.ts",
       "import": "./dist/es/types/index.js",
       "require": "./dist/cjs/types/index.js"
     },
     "./ui": {
+      "development": "./src/ui/index.ts",
       "types": "./dist/ui/index.d.ts",
       "import": "./dist/es/ui/index.js",
       "require": "./dist/cjs/ui/index.js"
     },
     "./shadcn-ui": {
+      "development": "./src/shadcn-ui/index.ts",
       "types": "./dist/shadcn-ui/index.d.ts",
       "import": "./dist/es/shadcn-ui/index.js",
       "require": "./dist/cjs/shadcn-ui/index.js"
     },
     "./hooks": {
+      "development": "./src/hooks/index.ts",
       "types": "./dist/hooks/index.d.ts",
       "import": "./dist/es/hooks/index.js",
       "require": "./dist/cjs/hooks/index.js"
     },
     "./hooks.user-notifications": {
+      "development": "./src/hooks/user-notifications/index.ts",
       "types": "./dist/hooks/user-notifications/index.d.ts",
       "import": "./dist/es/hooks.user-notifications/index.js",
       "require": "./dist/cjs/hooks.user-notifications/index.js"
     },
     "./hooks.feedbacks": {
+      "development": "./src/hooks/feedbacks/index.ts",
       "types": "./dist/hooks/feedbacks/index.d.ts",
       "import": "./dist/es/hooks.feedbacks/index.js",
       "require": "./dist/cjs/hooks.feedbacks/index.js"
@@ -90,13 +98,13 @@
     "class-variance-authority": "^0.7.0",
     "cmdk": "^1.0.0",
     "date-fns": "^4.0.0",
-    "lucide-react": "^0.300.0",
     "react-resizable-panels": "^3.0.0",
     "tailwind-merge": "^2.0.0",
     "vaul": "^1.0.0"
   },
   "dependencies": {
-    "@kaburi/react-kit": "^0.0.36"
+    "@kaburi/react-kit": "^0.0.36",
+    "lucide-react": "^0.522.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
