@@ -1,6 +1,6 @@
 import { apiClient } from "../../axios";
 import type {
-  TranscribeV2Response as TranscribeV3Response,
+  TranscribeV3Response,
   TranscribeWithTranslationResponse,
   UploadRequest,
   UploadResponse,

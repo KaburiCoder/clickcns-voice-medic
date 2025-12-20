@@ -2,7 +2,7 @@ import type { LlmRoom } from "./llm/chat";
 import type { RecordsResponse } from "./records";
 import type { Transcript } from "./transcript";
 
-export interface TranscribeV2Response {
+export interface TranscribeV3Response {
   transcript: string;
   language: string;
 }
