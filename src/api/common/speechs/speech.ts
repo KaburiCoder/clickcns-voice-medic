@@ -1,6 +1,6 @@
 import { apiClient } from "../../axios";
 import type {
-  TranscribeV2Response,
+  TranscribeV2Response as TranscribeV3Response,
   TranscribeWithTranslationResponse,
   UploadRequest,
   UploadResponse,
@@ -39,19 +39,11 @@ const transcribeWithEndpoint = async <T>(
 };
 
 export const speechApi = {
-  transcribeV2: async ({
-    buffer,
-  }: {
-    buffer: ArrayBuffer | Blob;
-  }): Promise<TranscribeV2Response> => {
-    return transcribeWithEndpoint("/speech/transcribe-v2", buffer);
-  },
-
   transcribeV3: async ({
     buffer,
   }: {
     buffer: ArrayBuffer | Blob;
-  }): Promise<TranscribeV2Response> => {
+  }): Promise<TranscribeV3Response> => {
     return transcribeWithEndpoint("/speech/transcribe-v3", buffer);
   },
 

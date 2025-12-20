@@ -25,11 +25,17 @@ export interface UploadRequest extends UploadBlobs {
   recordId?: string;
 }
 
+export interface PromptResult {
+  title: string;
+  result: string;
+  seq: number;
+}
 export interface UploadV3Request {
   opusBlob: ArrayBuffer | Blob;
   chart: string;
   transcript: string;
   transcripts: Transcript[];
+  promptResults?: PromptResult[];
   durationSeconds: number;
   recordId?: string;
 }
