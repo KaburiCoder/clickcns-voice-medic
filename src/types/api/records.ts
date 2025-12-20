@@ -4,7 +4,7 @@ import type {
   LlmRoom,
   MedicalSummaryResponse,
 } from "./llm";
-import type { AudioFile, Patient } from "./speech";
+import type { AudioFile, Patient, PromptResult } from "./speech";
 
 export interface RecordsResponse {
   id: string;
@@ -18,6 +18,7 @@ export interface RecordsResponse {
   llmRooms?: LlmRoom[];
   audioFiles?: AudioFile[];
   recordData?: Partial<RecordData> | null;
+  promptResults?: PromptResult[];
 }
 
 export interface RecordData {
