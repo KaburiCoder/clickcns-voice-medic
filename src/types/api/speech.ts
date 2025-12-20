@@ -1,3 +1,4 @@
+import type { PromptResult } from "./custom-prompts";
 import type { LlmRoom } from "./llm/chat";
 import type { RecordsResponse } from "./records";
 import type { Transcript } from "./transcript";
@@ -25,11 +26,6 @@ export interface UploadRequest extends UploadBlobs {
   recordId?: string;
 }
 
-export interface PromptResult {
-  title: string;
-  result: string;
-  seq: number;
-}
 export interface UploadV3Request {
   opusBlob: ArrayBuffer | Blob;
   chart: string;
