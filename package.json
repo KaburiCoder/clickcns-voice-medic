@@ -1,6 +1,6 @@
 {
   "name": "@clickcns/vmedic-react",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "A collection of powerful utilities and components built with React and Vite",
   "author": "clickcns",
   "license": "MIT",
@@ -17,7 +17,7 @@
   "module": "./dist/es.js",
   "types": "./dist/es.d.ts",
   "exports": {
-    ".": {      
+    ".": {
       "development": "./src/index.ts",
       "types": "./dist/es.d.ts",
       "import": "./dist/es.js",
