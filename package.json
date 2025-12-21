@@ -23,37 +23,37 @@
       "require": "./dist/cjs.js"
     },
     "./api": {
-      "types": "./dist/api/index.d.ts",
+      "types": "./dist/es/api/index.d.ts",
       "import": "./dist/es/api/index.js",
       "require": "./dist/cjs/api/index.js"
     },
     "./types": {
-      "types": "./dist/types/index.d.ts",
+      "types": "./dist/es/types/index.d.ts",
       "import": "./dist/es/types/index.js",
       "require": "./dist/cjs/types/index.js"
     },
     "./ui": {
-      "types": "./dist/ui/index.d.ts",
+      "types": "./dist/es/ui/index.d.ts",
       "import": "./dist/es/ui/index.js",
       "require": "./dist/cjs/ui/index.js"
     },
     "./shadcn-ui": {
-      "types": "./dist/shadcn-ui/index.d.ts",
+      "types": "./dist/es/shadcn-ui/index.d.ts",
       "import": "./dist/es/shadcn-ui/index.js",
       "require": "./dist/cjs/shadcn-ui/index.js"
     },
     "./hooks": {
-      "types": "./dist/hooks/index.d.ts",
+      "types": "./dist/es/hooks/index.d.ts",
       "import": "./dist/es/hooks/index.js",
       "require": "./dist/cjs/hooks/index.js"
     },
     "./hooks.user-notifications": {
-      "types": "./dist/hooks/user-notifications/index.d.ts",
+      "types": "./dist/es/hooks/user-notifications/index.d.ts",
       "import": "./dist/es/hooks.user-notifications/index.js",
       "require": "./dist/cjs/hooks.user-notifications/index.js"
     },
     "./hooks.feedbacks": {
-      "types": "./dist/hooks/feedbacks/index.d.ts",
+      "types": "./dist/es/hooks/feedbacks/index.d.ts",
       "import": "./dist/es/hooks.feedbacks/index.js",
       "require": "./dist/cjs/hooks.feedbacks/index.js"
     }
