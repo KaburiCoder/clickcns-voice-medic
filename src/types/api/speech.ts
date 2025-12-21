@@ -1,4 +1,3 @@
-import type { PromptResult } from "./custom-prompts";
 import type { LlmRoom } from "./llm/chat";
 import type { RecordsResponse } from "./records";
 import type { Transcript } from "./transcript";
