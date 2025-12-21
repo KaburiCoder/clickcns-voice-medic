@@ -1,10 +1,11 @@
 import type { UserDto } from "./auth";
+import type { PromptResult } from "./custom-prompts";
 import type {
   DiarizationMessage,
   LlmRoom,
   MedicalSummaryResponse,
 } from "./llm";
-import type { AudioFile, Patient, PromptResult } from "./speech";
+import type { AudioFile, Patient } from "./speech";
 
 export interface RecordsResponse {
   id: string;

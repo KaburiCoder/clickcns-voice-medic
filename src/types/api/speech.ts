@@ -20,6 +20,7 @@ export interface UploadBlobs {
   startTime?: number;
   endTime?: number;
 }
+
 export interface UploadRequest extends UploadBlobs {
   chart: string;
   transcript: string;
@@ -31,7 +32,6 @@ export interface UploadV3Request {
   chart: string;
   transcript: string;
   transcripts: Transcript[];
-  promptResults?: PromptResult[];
   durationSeconds: number;
   recordId?: string;
 }

@@ -13,3 +13,10 @@ export interface CustomPrompt {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface CustomPromptLLMResult {
+  title: string;
+  content: string;
+  description: string;
+  seq: number;
+}
