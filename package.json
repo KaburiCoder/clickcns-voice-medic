@@ -20,42 +20,50 @@
     ".": {
       "types": "./dist/es.d.ts",
       "import": "./dist/es.js",
-      "require": "./dist/cjs.js"
+      "require": "./dist/cjs.js",
+      "development": "./src/index.ts"
     },
     "./api": {
       "types": "./dist/es/api/index.d.ts",
       "import": "./dist/es/api/index.js",
-      "require": "./dist/cjs/api/index.js"
+      "require": "./dist/cjs/api/index.js",
+      "development": "./src/api/index.ts"
     },
     "./types": {
       "types": "./dist/es/types/index.d.ts",
       "import": "./dist/es/types/index.js",
-      "require": "./dist/cjs/types/index.js"
+      "require": "./dist/cjs/types/index.js",
+      "development": "./src/types/index.ts"
     },
     "./ui": {
       "types": "./dist/es/ui/index.d.ts",
       "import": "./dist/es/ui/index.js",
-      "require": "./dist/cjs/ui/index.js"
+      "require": "./dist/cjs/ui/index.js",
+      "development": "./src/ui/index.ts"
     },
     "./shadcn-ui": {
       "types": "./dist/es/shadcn-ui/index.d.ts",
       "import": "./dist/es/shadcn-ui/index.js",
-      "require": "./dist/cjs/shadcn-ui/index.js"
+      "require": "./dist/cjs/shadcn-ui/index.js",
+      "development": "./src/shadcn-ui/index.ts"
     },
     "./hooks": {
       "types": "./dist/es/hooks/index.d.ts",
       "import": "./dist/es/hooks/index.js",
-      "require": "./dist/cjs/hooks/index.js"
+      "require": "./dist/cjs/hooks/index.js",
+      "development": "./src/hooks/index.ts"
     },
     "./hooks.user-notifications": {
       "types": "./dist/es/hooks/user-notifications/index.d.ts",
       "import": "./dist/es/hooks.user-notifications/index.js",
-      "require": "./dist/cjs/hooks.user-notifications/index.js"
+      "require": "./dist/cjs/hooks.user-notifications/index.js",
+      "development": "./src/hooks/user-notifications/index.ts"
     },
     "./hooks.feedbacks": {
       "types": "./dist/es/hooks/feedbacks/index.d.ts",
       "import": "./dist/es/hooks.feedbacks/index.js",
-      "require": "./dist/cjs/hooks.feedbacks/index.js"
+      "require": "./dist/cjs/hooks.feedbacks/index.js",
+      "development": "./src/hooks/feedbacks/index.ts"
     }
   },
   "files": [
@@ -63,7 +71,8 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "develop": "node scripts/add-dev-exports.js",
+    "build": "node scripts/remove-dev-exports.js && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "prepublishOnly": "npm run build"

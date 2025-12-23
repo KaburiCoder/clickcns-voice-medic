@@ -1,3 +1,4 @@
+import type { MedicalSummaryResponse } from "./llm";
 import type { LlmRoom } from "./llm/chat";
 import type { RecordsResponse } from "./records";
 import type { Transcript } from "./transcript";
@@ -104,4 +105,32 @@ export interface ResummaryPartRequest {
 export interface UpsertPatientRequest {
   chart: string;
   name?: string;
+}
+
+// 과거 진료 기록 요청
+export interface GetPatientHistoryRequest {
+  chart: string;
+  excludeRecordId?: string;
+}
+
+// 과거 진료 기록
+export interface PatientHistoryRecord {
+  recordId: string;
+  createdAt: string;
+  transcript: string | null;
+  medicalSummary: MedicalSummaryResponse | null;
+}
+
+// 과거 진료 요약 응답
+export interface PatientHistorySummaryResponse {
+  chart: string;
+  patientName: string;
+  totalRecords: number;
+  summary: string; // 마크다운 형식
+  records: PatientHistoryRecord[];
+}
+
+// 과거 진료 기록 존재 여부 응답
+export interface HasPatientHistoryResponse {
+  hasHistory: boolean;
 }
