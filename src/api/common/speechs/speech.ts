@@ -1,5 +1,6 @@
 import { apiClient } from "../../axios";
 import type {
+  TranscribeV3Request,
   TranscribeV3Response,
   TranscribeWithTranslationResponse,
   UploadRequest,
@@ -24,11 +25,15 @@ const createAudioFormData = (buffer: ArrayBuffer | Blob): FormData => {
 const transcribeWithEndpoint = async <T>(
   endpoint: string,
   buffer: ArrayBuffer | Blob,
-  language?: string
+  language?: string,
+  useProofreading: boolean = true
 ): Promise<T> => {
   const formData = createAudioFormData(buffer);
   if (language) {
     formData.append("language", language);
+  }
+  if (useProofreading) {
+    formData.append("useProofreading", String(useProofreading));
   }
   const res = await apiClient.post(endpoint, formData, {
     headers: {
@@ -41,10 +46,14 @@ const transcribeWithEndpoint = async <T>(
 export const speechApi = {
   transcribeV3: async ({
     buffer,
-  }: {
-    buffer: ArrayBuffer | Blob;
-  }): Promise<TranscribeV3Response> => {
-    return transcribeWithEndpoint("/speech/transcribe-v3", buffer);
+    useProofreading,
+  }: TranscribeV3Request): Promise<TranscribeV3Response> => {
+    return transcribeWithEndpoint(
+      "/speech/transcribe-v3",
+      buffer,
+      undefined,
+      useProofreading
+    );
   },
 
   transcribeWithTranslation: async ({

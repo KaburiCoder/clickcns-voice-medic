@@ -3,6 +3,11 @@ import type { LlmRoom } from "./llm/chat";
 import type { RecordsResponse } from "./records";
 import type { Transcript } from "./transcript";
 
+export interface TranscribeV3Request {
+  buffer: ArrayBuffer | Blob;
+  useProofreading?: boolean;
+}
+
 export interface TranscribeV3Response {
   transcript: string;
   language: string;

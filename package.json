@@ -20,50 +20,42 @@
     ".": {
       "types": "./dist/es.d.ts",
       "import": "./dist/es.js",
-      "require": "./dist/cjs.js",
-      "development": "./src/index.ts"
+      "require": "./dist/cjs.js"
     },
     "./api": {
       "types": "./dist/es/api/index.d.ts",
       "import": "./dist/es/api/index.js",
-      "require": "./dist/cjs/api/index.js",
-      "development": "./src/api/index.ts"
+      "require": "./dist/cjs/api/index.js"
     },
     "./types": {
       "types": "./dist/es/types/index.d.ts",
       "import": "./dist/es/types/index.js",
-      "require": "./dist/cjs/types/index.js",
-      "development": "./src/types/index.ts"
+      "require": "./dist/cjs/types/index.js"
     },
     "./ui": {
       "types": "./dist/es/ui/index.d.ts",
       "import": "./dist/es/ui/index.js",
-      "require": "./dist/cjs/ui/index.js",
-      "development": "./src/ui/index.ts"
+      "require": "./dist/cjs/ui/index.js"
     },
     "./shadcn-ui": {
       "types": "./dist/es/shadcn-ui/index.d.ts",
       "import": "./dist/es/shadcn-ui/index.js",
-      "require": "./dist/cjs/shadcn-ui/index.js",
-      "development": "./src/shadcn-ui/index.ts"
+      "require": "./dist/cjs/shadcn-ui/index.js"
     },
     "./hooks": {
       "types": "./dist/es/hooks/index.d.ts",
       "import": "./dist/es/hooks/index.js",
-      "require": "./dist/cjs/hooks/index.js",
-      "development": "./src/hooks/index.ts"
+      "require": "./dist/cjs/hooks/index.js"
     },
     "./hooks.user-notifications": {
       "types": "./dist/es/hooks/user-notifications/index.d.ts",
       "import": "./dist/es/hooks.user-notifications/index.js",
-      "require": "./dist/cjs/hooks.user-notifications/index.js",
-      "development": "./src/hooks/user-notifications/index.ts"
+      "require": "./dist/cjs/hooks.user-notifications/index.js"
     },
     "./hooks.feedbacks": {
       "types": "./dist/es/hooks/feedbacks/index.d.ts",
       "import": "./dist/es/hooks.feedbacks/index.js",
-      "require": "./dist/cjs/hooks.feedbacks/index.js",
-      "development": "./src/hooks/feedbacks/index.ts"
+      "require": "./dist/cjs/hooks.feedbacks/index.js"
     }
   },
   "files": [
