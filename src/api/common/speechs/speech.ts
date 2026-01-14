@@ -32,9 +32,7 @@ const transcribeWithEndpoint = async <T>(
   if (language) {
     formData.append("language", language);
   }
-  if (useProofreading) {
-    formData.append("useProofreading", String(useProofreading));
-  }
+  formData.append("useProofreading", String(useProofreading));
   const res = await apiClient.post(endpoint, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
