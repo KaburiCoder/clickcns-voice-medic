@@ -21,8 +21,8 @@
     "moduleDetection": "force",
     "outDir": "./dist",
     "jsx": "react-jsx",
-    "noEmit": true, 
-    
+    "noEmit": true,
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
